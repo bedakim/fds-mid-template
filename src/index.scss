@@ -14,9 +14,9 @@ body {
 html {
   font-size: 14px;
   font-family: "Noto Sans KR";
-  position: relative;
   min-height: 100%;
   margin: 0;
+  position: relative;
 
 }
 ul {
@@ -80,13 +80,24 @@ a {
   overflow:hidden;
   border-bottom:1px solid #eaeaea;
 }
+.item-list{
+  width:1000px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+}
+.item-item{
+  width:30%;
+  margin: 10px;
+  text-align: center;
+}
 
 .footer {
   position: absolute;
-  left: 0;
-  bottom: 0;
   width: 100%;
-  padding: 15px 0;
+  height: 100px;
   text-align: center;
   color: white;
   background-color: #0E2C4A;

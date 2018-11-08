@@ -19,11 +19,12 @@ api.interceptors.request.use(function (config) {
 const templates = {
   mainImg: document.querySelector('#main-img').content,
   category: document.querySelector('#category').content,
-  itemList: document.querySelector('#item-list').content,
   loginForm: document.querySelector('#login-form').content,
   signupForm: document.querySelector('#signup-form').content,
+  itemList: document.querySelector('#item-list').content,
+  itemItem: document.querySelector('#item-item').content,
   // itemDetailForm: document.querySelector('#item-detail-form').content,
-  // postList: document.querySelector('#post-list').content,
+
 
 }
 
@@ -48,13 +49,31 @@ logoEl.addEventListener('click',  e => {
 //메인화면
 async function drawMain() {
   // 1. 템플릿 복사
-  const frag = document.importNode(templates.mainImg, true)
+  const frag1 = document.importNode(templates.mainImg, true)
   const category = document.importNode(templates.category, true)
-  const itemList = document.importNode(templates.itemList, true)
+  const frag = document.importNode(templates.itemList, true)
   // 2. 요소 선택
-
+  const listEl = frag.querySelector('.item-list')
   // 3. 필요한 데이터 불러오기
+  const {data: itemList} = await api.get('/products/')
   // 4. 내용 채우기
+  for (const itemItem of itemList){
+    const frag = document.importNode(templates.itemItem, true)
+
+    const imgEl = frag.querySelector('.img')
+    const titleEl = frag.querySelector('.title')
+    const priceEl = frag.querySelector('.price')
+
+    imgEl.setAttribute('src', itemItem.mainImgUrl)
+    titleEl.textContent = itemItem.title
+    priceEl.textContent = itemItem.price
+
+    // titleEl.addEventListener('click', e=>{
+    //   drawPostDetail(itemItem.id)
+    // })
+
+    listEl.appendChild(frag)
+  }
 
   // 5. 이벤트 리스너 등록하기
 loginEl.addEventListener('click', async e => {
@@ -68,9 +87,9 @@ signupEl.addEventListener('click', async e => {
 })
   // 6. 템플릿을 문서에 삽입
   rootEl.textContent = ''
-  rootEl.appendChild(frag)
+  rootEl.appendChild(frag1)
   rootEl.appendChild(category)
-  rootEl.appendChild(itemList)
+  rootEl.appendChild(frag)
 }
 drawMain()
 
