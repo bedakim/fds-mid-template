@@ -1,6 +1,7 @@
 import '@babel/polyfill' // 이 라인을 지우지 말아주세요!
 
 import axios from 'axios'
+import { listenerCount } from 'cluster';
 
 const api = axios.create({
   baseURL: process.env.API_URL
@@ -16,11 +17,17 @@ api.interceptors.request.use(function (config) {
 });
 
 const templates = {
+  mainImg: document.querySelector('#main-img').content,
+  category: document.querySelector('#category').content,
+  itemList: document.querySelector('#item-list').content,
+  loginForm: document.querySelector('#login-form').content,
+  signupForm: document.querySelector('#signup-form').content,
+  // itemDetailForm: document.querySelector('#item-detail-form').content,
+  // postList: document.querySelector('#post-list').content,
 
 }
 
 const rootEl = document.querySelector('.root')
-
 // 페이지 그리는 함수 작성 순서
 // 1. 템플릿 복사
 // 2. 요소 선택
@@ -28,3 +35,207 @@ const rootEl = document.querySelector('.root')
 // 4. 내용 채우기
 // 5. 이벤트 리스너 등록하기
 // 6. 템플릿을 문서에 삽입
+
+const loginEl = document.querySelector('.login')
+const signupEl = document.querySelector('.signup')
+const logoEl = document.querySelector('.logo')
+logoEl.addEventListener('click',  e => {
+  e.preventDefault()
+  drawMain()
+})
+
+
+//메인화면
+async function drawMain() {
+  // 1. 템플릿 복사
+  const frag = document.importNode(templates.mainImg, true)
+  const category = document.importNode(templates.category, true)
+  const itemList = document.importNode(templates.itemList, true)
+  // 2. 요소 선택
+
+  // 3. 필요한 데이터 불러오기
+  // 4. 내용 채우기
+
+  // 5. 이벤트 리스너 등록하기
+loginEl.addEventListener('click', async e => {
+  e.preventDefault()
+  drawLogin()
+})
+
+signupEl.addEventListener('click', async e => {
+  e.preventDefault()
+  drawSignUp()
+})
+  // 6. 템플릿을 문서에 삽입
+  rootEl.textContent = ''
+  rootEl.appendChild(frag)
+  rootEl.appendChild(category)
+  rootEl.appendChild(itemList)
+}
+drawMain()
+
+
+//로그인 화면
+async function drawLogin() {
+// 1. 템플릿 복사
+  const frag = document.importNode(templates.loginForm, true)
+  // 2. 요소 선택
+  const formEl = frag.querySelector('.login-form')
+  // 3. 필요한 데이터 불러오기
+  // 4. 내용 채우기
+  // 5. 이벤트 리스너 등록하기
+  formEl.addEventListener('submit', async e => {
+    e.preventDefault()
+    const username = e.target.elements.username.value
+    const password = e.target.elements.password.value
+
+    const res = await api.post('/users/login', {
+      username,
+      password
+    })
+
+    localStorage.setItem('token', res.data.token)
+    drawMain()
+  })
+  // 6. 템플릿을 문서에 삽입
+  rootEl.textContent = ''
+  rootEl.appendChild(frag)
+}
+
+
+
+
+//회원가입 화면
+async function drawSignUp() {
+// 1. 템플릿 복사
+const frag = document.importNode(templates.signupForm, true)
+// 2. 요소 선택
+// 3. 필요한 데이터 불러오기
+// 4. 내용 채우기
+// 5. 이벤트 리스너 등록하기
+// 6. 템플릿을 문서에 삽입
+  rootEl.textContent = ''
+  rootEl.appendChild(frag)
+
+}
+
+
+//상세 페이지
+async function itemDetail() {
+// 1. 템플릿 복사
+// 2. 요소 선택
+// 3. 필요한 데이터 불러오기
+// 4. 내용 채우기
+// 5. 이벤트 리스너 등록하기
+// 6. 템플릿을 문서에 삽입
+
+}
+
+
+//장바구니
+async function drawCart() {
+// 1. 템플릿 복사
+// 2. 요소 선택
+// 3. 필요한 데이터 불러오기
+// 4. 내용 채우기
+// 5. 이벤트 리스너 등록하기
+// 6. 템플릿을 문서에 삽입
+
+}
+
+// 로그인시 그릴 화면
+if (localStorage.getItem('token')){
+  drawMain()
+  updateLoginButton()
+}
+
+function updateLoginButton() {
+  const loginEl = document.querySelector('.login')
+  const logoutEl = document.querySelector('.logout')
+  if (localStorage.getItem('token')) {
+    // 로그인 버튼 띄우고
+    loginEl.classList.remove('hidden')
+    // 로그아웃 버튼 숨기기
+    logoutEl.classList.add('hidden')
+  } else {
+    logoutEl.classList.remove('hidden')
+    // ..
+    loginEl.classList.add('hidden')
+  }
+}
+
+updateLoginButton()
+
+
+//*************************************************** */
+
+// async function drawLoginForm() {
+//   // 1. 템플릿 복사
+//   const frag = document.importNode(templates.loginForm, true)
+
+//   // 2. 요소 선택
+//   const formEl = frag.querySelector('.login-form')
+
+//   // 3. 필요한 데이터 불러오기 - 필요없음
+//   // 4. 내용 채우기 - 필요없음
+//   // 5. 이벤트 리스너 등록하기
+//   formEl.addEventListener('submit', async e => {
+//     e.preventDefault()
+//     const username = e.target.elements.username.value
+//     const password = e.target.elements.password.value
+
+//     const res = await api.post('/users/login', {
+//       username,
+//       password
+//     })
+
+//     localStorage.setItem('token', res.data.token)
+//     drawPostList()
+//   })
+
+//   // 6. 템플릿을 문서에 삽입
+//   rootEl.textContent = ''
+//   rootEl.appendChild(frag)
+// }
+
+// drawLoginForm()
+
+// async function drawPostList() {
+//   // 1. 템플릿 복사
+//   const frag = document.importNode(templates.postList, true)
+
+//   // 2. 요소 선택
+//   const listEl = frag.querySelector('.post-list')
+  // const createEl = frag.querySelector('.create')
+  // 3. 필요한 데이터 불러오기
+  // const {data: postList} = await api.get('/posts?_expand=user')
+
+
+  // 4. 내용 채우기
+  // for (const postItem of postList){
+  //   const frag = document.importNode(templates.postItem, true)
+
+  //   const idEl = frag.querySelector('.id')
+  //   const titleEl = frag.querySelector('.title')
+  //   const authorEl = frag.querySelector('.author')
+
+  //   idEl.textContent = postItem.id
+  //   titleEl.textContent = postItem.title
+  //   authorEl.textContent = postItem.user.username
+
+    // titleEl.addEventListener('click', e=>{
+    //   drawPostDetail(postItem.id)
+    // })
+
+    // listEl.appendChild(frag)
+  // }
+
+  // 5. 이벤트 리스너 등록하기
+  // createEl.addEventListener('click', e => {
+  //   drawNewPostForm()
+  // })
+
+  // 6. 템플릿을 문서에 삽입
+  // rootEl.textContent = ''
+  // rootEl.appendChild(frag)
+// }

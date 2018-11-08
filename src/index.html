@@ -4,13 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>쇼핑몰!</title>
+  <title>꼴데몰</title>
   <link rel="stylesheet" href="./index.scss">
 </head>
 <body>
   <!-- 템플릿을 이곳에 작성해주세요 -->
 
-  <div class="root"></div>
+
+
+
+
+
+<!-- 헤더 -->
+<header class="header">
+    <h1 class="logo"><a href="#"><img src="images/logo.gif"></h1></a>
+      <ul class="member">
+        <li ><a href="#" class="login">로그인</a></li>
+        <li ><a href="#" class="logout">로그아웃</a></li>
+        <li ><a href="#" class="cart">장바구니</a></li>
+        <li ><a href="#" class="signup">회원가입</a></li>
+      </ul>
+</header>
+
+<!-- 로그인 -->
+
+<template id="login-form">
+  <h1 class="login-title">로그인</h1>
+  <form class="login-form">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <button>로그인</button>
+  </form>
+</template>
+
+<!-- 회원가입 -->
+<template id="signup-form">
+  <h1 class="signup-title">회원가입</h1>
+    <form class="signup-form">
+      <input type="text" name="username">
+      <input type="password" name="password">
+      <button>완료</button>
+      <button>메인페이지</button>
+    </form>
+
+</template>
+
+<!-- 루트 -->
+<div class="root"></div>
+
+<!-- 메인 이미지 -->
+<template id="main-img">
+  <div class="main-img">
+  <a href="#"><img src="images/nav.jpg"></a>
+  </div>
+</template>
+
+<!-- 카테고리 리스트 -->
+<template id="category">
+  <div class="category">
+			<ul class="category-list">
+				<li class="all">
+					<a href="#">All</a>
+				</li>
+				<li class="uniform">
+					<a href="#">Uniform</a>
+				</li>
+				<li class="cap">
+					<a href="#">Cap</a>
+				</li>
+				<li class="acc">
+					<a href="#">Acc</a>
+				</li>
+			</ul>
+  </div>
+</template>
+<!-- 상품목록 -->
+<template id="item-list">
+  <div class="item-list">
+
+  </div>
+</template>
+
+<template id="item">
+  <li class="item">
+    <a href="#" class="item-link">
+      <img src="#" class="item-img">
+      <strong class="item-title">a</strong>
+      <span class="item-price">b</span>
+    </a>
+  </li>
+</template>
+
+<!-- 상품디테일 -->
+
+<template id="item-detail-from">
+
+
+</template>
+
+<!-- 푸터 -->
+<footer class="footer">
+        © 2018 Copyright by Beda Kim
+  </footer>
+
+
   <script src="./index.js"></script>
 </body>
 </html>
