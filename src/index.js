@@ -23,6 +23,7 @@ const templates = {
   signupForm: document.querySelector('#signup-form').content,
   itemList: document.querySelector('#item-list').content,
   itemItem: document.querySelector('#item-item').content,
+  itemDetail: document.querySelector('#item-detail-from').content,
   // itemDetailForm: document.querySelector('#item-detail-form').content,
 
 
@@ -49,7 +50,7 @@ logoEl.addEventListener('click',  e => {
 //메인화면
 async function drawMain() {
   // 1. 템플릿 복사
-  const frag1 = document.importNode(templates.mainImg, true)
+  const img = document.importNode(templates.mainImg, true)
   const category = document.importNode(templates.category, true)
   const frag = document.importNode(templates.itemList, true)
   // 2. 요소 선택
@@ -68,8 +69,9 @@ async function drawMain() {
     titleEl.textContent = itemItem.title
     priceEl.textContent = itemItem.price
 
-    // titleEl.addEventListener('click', e=>{
-    //   drawPostDetail(itemItem.id)
+    // imgEl.addEventListener('click',async e=>{
+    //   e.preventDefault()
+    //   itemDetail(itemItem.mainImgUrl)
     // })
 
     listEl.appendChild(frag)
@@ -87,7 +89,7 @@ signupEl.addEventListener('click', async e => {
 })
   // 6. 템플릿을 문서에 삽입
   rootEl.textContent = ''
-  rootEl.appendChild(frag1)
+  rootEl.appendChild(img)
   rootEl.appendChild(category)
   rootEl.appendChild(frag)
 }
