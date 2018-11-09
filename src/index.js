@@ -24,8 +24,7 @@ const templates = {
   itemList: document.querySelector('#item-list').content,
   itemItem: document.querySelector('#item-item').content,
   itemDetail: document.querySelector('#item-detail-from').content,
-  // itemDetailForm: document.querySelector('#item-detail-form').content,
-
+  itemDetailImg: document.querySelector('#item-detail-img').content,
 
 }
 
@@ -61,7 +60,7 @@ async function drawMain() {
   for (const itemItem of itemList){
     const frag = document.importNode(templates.itemItem, true)
 
-    const imgEl = frag.querySelector('.img')
+    const imgEl = frag.querySelector('.item-item-img')
     const titleEl = frag.querySelector('.title')
     const priceEl = frag.querySelector('.price')
 
@@ -69,10 +68,10 @@ async function drawMain() {
     titleEl.textContent = itemItem.title
     priceEl.textContent = itemItem.price
 
-    // imgEl.addEventListener('click',async e=>{
-    //   e.preventDefault()
-    //   itemDetail(itemItem.mainImgUrl)
-    // })
+    imgEl.addEventListener('click',async e=>{
+      e.preventDefault()
+      itemDetail(itemItem.id)
+    })
 
     listEl.appendChild(frag)
   }
@@ -139,17 +138,50 @@ const frag = document.importNode(templates.signupForm, true)
   rootEl.appendChild(frag)
 
 }
-
-
 //상세 페이지
-async function itemDetail() {
+async function itemDetail(productId) {
 // 1. 템플릿 복사
+const frag = document.importNode(templates.itemDetail, true)
 // 2. 요소 선택
-// 3. 필요한 데이터 불러오기
-// 4. 내용 채우기
-// 5. 이벤트 리스너 등록하기
-// 6. 템플릿을 문서에 삽입
+const mainImgEl = frag.querySelector('.item-img')
+const itemDetailEl = frag.querySelector('.item-detail-img')
+const titleEl = frag.querySelector('.dt-title')
+const priceEl = frag.querySelector('.dt-price')
+const descriptionEl = frag.querySelector('.dt-description')
 
+// 3. 필요한 데이터 불러오기
+const {data: itemData} = await api.get('/products/' + productId,{
+  params: {
+    _expand: 'id'
+  }
+})
+// 4. 내용 채우기
+
+titleEl.textContent = itemData.title
+priceEl.textContent = itemData.price
+descriptionEl.textContent = itemData.description
+mainImgEl.setAttribute('src',itemData.mainImgUrl)
+
+for ( const imgUrl of itemData.detailImgUrls){
+  // 1. 템플릿 복사
+  const frag = document.importNode(templates.itemDetailImg, true);
+  // 2. 요소 선택
+  const dtImg = frag.querySelector('.dt-img')
+  // 3. 필요한 데이터 불러오기
+  // 4. 내용 채우기
+  dtImg.setAttribute('src', imgUrl)
+  // 5. 이벤트 리스너 등록하기
+  // 6. 템플릿을 문서에 삽입
+  itemDetailEl.appendChild(frag)
+}
+
+
+// 5. 이벤트 리스너 등록하기
+
+
+// 6. 템플릿을 문서에 삽입
+  rootEl.textContent = ''
+  rootEl.appendChild(frag)
 }
 
 

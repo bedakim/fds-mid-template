@@ -90,7 +90,7 @@
 <template id="item-item">
   <li class="item-item">
     <a href="#" class="item-link">
-      <img src="#" class="img">
+      <img src="#" class="item-item-img">
       <strong class="title"></strong>
       <span class="price"></span>
     </a>
@@ -100,9 +100,30 @@
 <!-- 상품디테일 -->
 
 <template id="item-detail-from">
-
-
+  <div class="item-img"></div>
+    <div class="item-info">
+      <div class="detail-title">
+        title : <span class="dt-title"></span>
+      </div>
+      <div class="detail-price">
+        price : <span class="dt-price"></span>
+      </div>
+      <div class="detail-description">
+        description : <span class="dt-description"></span>
+      </div>
+    </div>
+    <div class="item-detail-img">
+      <h2>상세 이미지</h2>
+    </div>
 </template>
+
+<!-- 디테일안 상세이미지 -->
+<template id="item-detail-img">
+    <div>
+      <img src="#" class="dt-img">
+    </div>
+</template>
+
 
 <!-- 푸터 -->
 <footer class="footer">
