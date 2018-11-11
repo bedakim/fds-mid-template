@@ -53,6 +53,11 @@ a {
   content: "|";
   margin: 0 9px;
 }
+
+.hidden{
+  display: none;
+}
+
 .main-img {
   background-color: #EEEDE9;
   margin-top: 30px;
@@ -92,6 +97,20 @@ a {
   width:30%;
   margin: 10px;
   text-align: center;
+}
+
+//디테일
+.detail-container{
+  width:60%;
+  margin: 100px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.item-detail-img{
+  text-align: center;
+  margin: 50px auto;
+  font-size: 1.5em;
 }
 
 .footer {

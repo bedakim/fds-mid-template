@@ -10,11 +10,6 @@
 <body>
   <!-- 템플릿을 이곳에 작성해주세요 -->
 
-
-
-
-
-
 <!-- 헤더 -->
 <header class="header">
     <h1 class="logo"><a href="#"><img src="images/logo.gif"></h1></a>
@@ -46,8 +41,52 @@
       <button>완료</button>
       <button>메인페이지</button>
     </form>
-
 </template>
+
+<!-- 카트 -->
+<template id="cart-list">
+    <h1>장바구니</h1>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <td>
+            <input type="checkbox" class="checkbox-all" checked>
+          </td>
+          <td>대표 이미지</td>
+          <td>상품 설명</td>
+          <td>수량</td>
+          <td>삭제</td>
+        </tr>
+      </thead>
+      <tbody class="cart-list"></tbody>
+    </table>
+    <button class="order">선택 상품 주문하기</button>
+  </template>
+
+<template id="cart-item">
+    <tr class="cart-item">
+      <td>
+        <input type="checkbox" class="checkbox" checked>
+      </td>
+      <td>
+        <img class="main-image">
+      </td>
+      <td>
+        <div class="title"></div>
+        <div class="option"></div>
+        <div class="price"></div>
+      </td>
+      <td>
+        <form class="quantity-form">
+          <input type="number" name="quantity" class="quantity">
+          <button>수정</button>
+        </form>
+      </td>
+      <td>
+        <button class="delete">삭제</button>
+      </td>
+    </tr>
+  </template>
 
 <!-- 루트 -->
 <div class="root"></div>
@@ -100,6 +139,7 @@
 <!-- 상품디테일 -->
 
 <template id="item-detail-from">
+  <div class="detail-container">
   <div class="item-img"></div>
     <div class="item-info">
       <div class="detail-title">
@@ -112,9 +152,30 @@
         description : <span class="dt-description"></span>
       </div>
     </div>
+    <form class="cart-form">
+        <div class="cart-form__field">
+          <div class="cart-form__label">
+            옵션
+          </div>
+          <select name="option" class="cart-form__control option" required>
+            <option value="" disabled selected>옵션을 선택하세요</option>
+          </select>
+        </div class="cart-form__field">
+        <div class="cart-form__field">
+          <div class="cart-form__label">
+            수량
+          </div>
+          <input type="number" name="quantity" class="cart-form__control quantity" value="1" min="1" required>
+        </div class="cart-form__field">
+        <div class="cart-form__field">
+          가격: <span class="price"></span>
+        </div>
+        <button class="cart-form__submit">담기</button>
+      </form>
     <div class="item-detail-img">
       <h2>상세 이미지</h2>
     </div>
+  </div>
 </template>
 
 <!-- 디테일안 상세이미지 -->
